@@ -22,7 +22,7 @@ export default async function Home() {
 
   // Fetch the user document
   const user = await db.collection("cooking_inventory_users").findOne({
-    _id: new ObjectId("507f1f77bcf86cd799439011"), // <-- replace with actual _id from Atlas
+    _id: new ObjectId("507f1f77bcf86cd799439011"),
   });
 
   if (!user) {
@@ -31,7 +31,7 @@ export default async function Home() {
 
   const DATA = {
     title: "Next.js with MongoDB",
-    description: user.username, // 🔥 username from MongoDB goes here
+    description: user.username,
     button: {
       text: "Deploy to Vercel",
       href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs",
@@ -92,7 +92,7 @@ export default async function Home() {
           </h1>
 
           <p className="mt-3.5 max-w-lg text-base text-[#61646B] md:text-lg lg:text-xl dark:text-[#94979E]">
-            {DATA.description} {/* 🔥 username appears here */}
+            {DATA.description} {}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-5">
