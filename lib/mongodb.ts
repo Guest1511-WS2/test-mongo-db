@@ -1,5 +1,7 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
+MONGODB_URI = "mongodb+srv://Vercel-Admin-cookbook-database-2:SCX21F1Ho0aGurw0@cookbook-database-2.qi2avgg.mongodb.net/?retryWrites=true&w=majority";
+
 const uri = process.env.MONGODB_URI;
 const options: MongoClientOptions = {
   appName: "devrel.nextjs.starter",
