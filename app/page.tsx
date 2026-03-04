@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // ensures dynamic server-side rendering
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileText, LogIn } from "lucide-react";
@@ -16,18 +18,16 @@ import { Badge } from "@/components/ui/badge";
 export default async function Home() {
   const result = await dbConnectionStatus();
 
-  // Connect to MongoDB
-  const client = await clientPromise;
+  //Connect to MongoDB
+  const client = await clientPromise!;
   const db = client.db("cooking_inventory");
 
-  // Fetch the user document
+  // Fetch the user document by _id
   const user = await db.collection("cooking_inventory_users").findOne({
     _id: new ObjectId("507f1f77bcf86cd799439011"),
   });
 
-  if (!user) {
-    throw new Error("User not found in MongoDB. Check _id and collection name.");
-  }
+  if (!user) throw new Error("User not found in MongoDB");
 
   const DATA = {
     title: "Next.js with MongoDB",
