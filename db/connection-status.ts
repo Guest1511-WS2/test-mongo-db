@@ -18,12 +18,11 @@ export async function dbConnectionStatus() {
       .project({
         username: 0,
         email: 0,
-        passwordHash: 0,
+        password_hash: 0,
       })
       .limit(10)
       .toArray();
-    response.status(200).json(results);
-    console.log("MongoDB connection successful");
+    console.log("MongoDB connection successful" + .json(results));
     return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
