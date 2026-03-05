@@ -16,14 +16,13 @@ export async function dbConnectionStatus() {
     const result = await users
       .find({})
       .project({
-        username: 0,
-        email: 0,
-        password_hash: 0,
+        username: 1,
+        email: 1,
+        password_hash: 1,
       })
       .limit(10)
       .toArray();
     console.log(result);
-    console.log(users);
     console.log("MongoDB connection successful");
     return "Database connected";
   } catch (error) {
