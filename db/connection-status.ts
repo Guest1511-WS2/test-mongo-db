@@ -10,9 +10,12 @@ export async function dbConnectionStatus() {
   try {
     const client = await clientPromise;
     const db = client.db("cooking_inventory");
+    const users = db.collection("cooking_inventory_users");
+    const ingredients = db.collection("ingredientInventory");
+    const recipes = db.collection("recipesInventory");
     const result = await db.command({ ping: 1 });
     console.log("MongoDB connection successful:", result);
-    return db + " connected";
+    return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
     return "Database not connected";
