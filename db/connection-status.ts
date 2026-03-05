@@ -22,8 +22,8 @@ export async function dbConnectionStatus() {
       })
       .limit(10)
       .toArray();
-    console.log(result.project.username);
-    console.log(users.project.username);
+    console.log(result);
+    console.log(users);
     console.log("MongoDB connection successful");
     return "Database connected";
   } catch (error) {
