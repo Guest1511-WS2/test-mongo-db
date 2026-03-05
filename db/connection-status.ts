@@ -19,10 +19,11 @@ export async function dbConnectionStatus() {
         username: 0,
         email: 0,
         password_hash: 0,
+        console.log(username);
       })
       .limit(10)
       .toArray();
-    console.log("MongoDB connection successful" + result.username);
+    console.log("MongoDB connection successful");
     return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
