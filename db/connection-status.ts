@@ -22,7 +22,7 @@ export async function dbConnectionStatus() {
       })
       .limit(10)
       .toArray();
-    console.log("MongoDB connection successful" + json(results));
+    console.log("MongoDB connection successful" + JSON.parse(results));
     return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
