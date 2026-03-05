@@ -13,8 +13,17 @@ export async function dbConnectionStatus() {
     const users = db.collection("cooking_inventory_users");
     const ingredients = db.collection("ingredientInventory");
     const recipes = db.collection("recipesInventory");
-    const result = await db.command({ ping: 1 });
-    console.log("MongoDB connection successful:", result);
+    const result = await users
+      .find({})
+      .project({
+        username: 0,
+        email: 0,
+        passwordHash: 0,
+      })
+      .limit(10)
+      .toArray();
+    response.status(200).json(results);
+    console.log("MongoDB connection successful");
     return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
