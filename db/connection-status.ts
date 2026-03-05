@@ -19,7 +19,7 @@ export async function dbConnectionStatus() {
         username: 0,
         email: 0,
         password_hash: 0,
-        console.log(username);
+        console.log(username),
       })
       .limit(10)
       .toArray();
