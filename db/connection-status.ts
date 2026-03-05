@@ -9,10 +9,10 @@ export async function dbConnectionStatus() {
   }
   try {
     const client = await clientPromise;
-    const db = client.db();
+    const db = client.db("cooking_inventory");
     const result = await db.command({ ping: 1 });
     console.log("MongoDB connection successful:", result);
-    return "Database connected";
+    return db + " connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
     return "Database not connected";
