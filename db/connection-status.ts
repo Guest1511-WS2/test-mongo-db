@@ -10,9 +10,9 @@ export async function dbConnectionStatus() {
   try {
     const client = await clientPromise;
     const db = client.db("cooking_inventory");
-    export let users = db.collection("cooking_inventory_users");
-    export let ingredients = db.collection("ingredientInventory");
-    export let recipes = db.collection("recipesInventory");
+    let users = db.collection("cooking_inventory_users");
+    let ingredients = db.collection("ingredientInventory");
+    let recipes = db.collection("recipesInventory");
     const result = await ingredients
       .find({})
       .project({
