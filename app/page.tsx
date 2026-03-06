@@ -21,6 +21,16 @@ export async function dbConnectionStatus() {
     const db = client.db("cooking_inventory");
     const ingredients = db.collection("ingredientInventory");
     console.log("MongoDB connection successful");
+    const test = await ingredients
+      .find({})
+      .project({
+        name: 0,
+        amount: 0,
+        unit: 0,
+      })
+      .limit(10)
+      .toArray();
+  console.log(test);
     return "Database connected";
   } catch (error) {
     console.error("Error connecting to the database:", error);
@@ -55,16 +65,6 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
-  const test = await ingredients
-      .find({})
-      .project({
-        name: 0,
-        amount: 0,
-        unit: 0,
-      })
-      .limit(10)
-      .toArray();
-  console.log(test);
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
