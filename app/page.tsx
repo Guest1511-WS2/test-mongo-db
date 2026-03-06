@@ -8,7 +8,6 @@ import { ArrowRight, FileText, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { dbConnectionStatus } from "@/db/connection-status";
-import clientPromise from '@/lib/mongodb';
 
 const DATA = {
   title: "Next.js with MongoDB",
@@ -37,20 +36,6 @@ const DATA = {
 };
 
 export default async function Home() {
-    const client = await clientPromise;
-    console.log(client + "Hello????");
-    const db = client.db("cooking_inventory");
-    const ingredients = db.collection("ingredientInventory");
-    const test1 = await ingredients
-      .find({})
-      .project({
-        name: 0,
-        amount: 0,
-        unit: 0,
-      })
-      .limit(1)
-      .toArray();
-    console.log(test1);
   const result = await dbConnectionStatus();
   console.log(dbConnectionStatus() + " Hello, where am I?");
   return (
