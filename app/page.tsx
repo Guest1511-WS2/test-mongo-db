@@ -9,7 +9,6 @@ import { dbConnectionStatus, ingredients } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 const result = await ingredients
-{
       .find({})
       .project({
         name: 0,
@@ -18,7 +17,6 @@ const result = await ingredients
       })
       .limit(10)
       .toArray();
-}
 console.log(result);
 
 const DATA = {
