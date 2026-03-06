@@ -1,3 +1,4 @@
+import clientPromise from '@/lib/mongodb';
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import logoDark from "@/assets/logo-dark.svg";
@@ -5,7 +6,7 @@ import vercelLogotypeLight from "@/assets/vercel-logotype-light.svg";
 import vercelLogotypeDark from "@/assets/vercel-logotype-dark.svg";
 import Link from "next/link";
 import { ArrowRight, FileText, LogIn } from "lucide-react";
-import { dbConnectionStatus, ingredients } from "@/db/connection-status";
+import { dbConnectionStatus } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 const result = await ingredients
