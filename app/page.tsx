@@ -37,7 +37,7 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
-  console.log(dbConnectionStatus() + " Hello, where am I?");
+  console.log(dbConnectionStatus()[1] + " Hello, where am I?");
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
