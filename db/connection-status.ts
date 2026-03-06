@@ -23,8 +23,8 @@ export async function dbConnectionStatus() {
       })
       .limit(10)
       .toArray();
-    console.log(ingredients);
-    return "Database connected";
+    console.log(result);
+    return "Database connected" + {users, ingredients, recipes};
   } catch (error) {
     console.error("Error connecting to the database:", error);
     return "Database not connected";
