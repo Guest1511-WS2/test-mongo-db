@@ -9,6 +9,9 @@ import { ArrowRight, FileText, LogIn } from "lucide-react";
 import { dbConnectionStatus } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+const client = await clientPromise;
+const db = client.db("cooking_inventory");
+const ingredients = db.collection("ingredientInventory");
 const result = await ingredients
       .find({})
       .project({
