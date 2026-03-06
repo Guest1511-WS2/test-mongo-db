@@ -38,10 +38,11 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
+  try {
   const client = await clientPromise;
   const db = client.db("cooking_inventory");
   const ingredients = db.collection("ingredientInventory");
-  const ingredient1 = await ingredients
+  const testIngredient = await ingredients
       .find({})
       .project({
         name: 0,
@@ -50,7 +51,11 @@ export default async function Home() {
       })
       .limit(5)
       .toArray();
-console.log(ingredient1);
+console.log(testIngredient);
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+    return "Database not connected";
+  }
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
