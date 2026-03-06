@@ -10,10 +10,20 @@ export async function dbConnectionStatus() {
   try {
     const client = await clientPromise;
     const db = client.db("cooking_inventory");
-    const users = db.collection("cooking_inventory_users");
-    const ingredients = db.collection("ingredientInventory");
-    const recipes = db.collection("recipesInventory");
     console.log("MongoDB connection successful");
+    return "Database connected";
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+    return "Database not connected";
+  }
+}
+
+export async function initalizingDatabases(){
+    const client = await clientPromise;
+    const db = client.db("cooking_inventory");
+    export let users = db.collection("cooking_inventory_users");
+    export let ingredients = db.collection("ingredientInventory");
+    export let recipes = db.collection("recipesInventory");
     const result = await ingredients
       .find({})
       .project({
@@ -21,12 +31,7 @@ export async function dbConnectionStatus() {
         amount: 0,
         unit: 0,
       })
-      .limit(10)
+      .limit(1)
       .toArray();
     console.log(result);
-    return "Database connected" + {users, ingredients, recipes};
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-    return "Database not connected";
-  }
 }
