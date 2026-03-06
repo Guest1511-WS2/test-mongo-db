@@ -8,7 +8,6 @@ import { ArrowRight, FileText, LogIn } from "lucide-react";
 import { dbConnectionStatus } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-console.log(ingredients);
 
 const DATA = {
   title: "Next.js with MongoDB",
@@ -38,6 +37,7 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
+  console.log(ingredients);
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
