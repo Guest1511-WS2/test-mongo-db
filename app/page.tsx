@@ -39,7 +39,7 @@ const DATA = {
 export default async function Home() {
     const client = await clientPromise;
     const db = client.db("cooking_inventory");
-    let ingredients = db.collection("ingredientInventory");
+    const ingredients = db.collection("ingredientInventory");
     const test1 = await ingredients
       .find({})
       .project({
