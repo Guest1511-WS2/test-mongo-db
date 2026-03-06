@@ -38,6 +38,7 @@ const DATA = {
 
 export default async function Home() {
     const client = await clientPromise;
+    console.log(client);
     const db = client.db("cooking_inventory");
     const ingredients = db.collection("ingredientInventory");
     const test1 = await ingredients
