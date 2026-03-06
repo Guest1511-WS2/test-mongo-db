@@ -7,36 +7,8 @@ import Link from "next/link";
 import { ArrowRight, FileText, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import clientPromise from '@/lib/mongodb';
+import { dbConnectionStatus } from "@/db/connection-status";
 
-export async function dbConnectionStatus() {
-  if (!process.env.MONGODB_URI) {
-    return "No MONGODB_URI environment variable";
-  }
-  if (!clientPromise) {
-    return "Database client not initialized";
-  }
-  try {
-    const client = await clientPromise;
-    const db = client.db("cooking_inventory");
-    const ingredients = db.collection("ingredientInventory");
-    console.log("MongoDB connection successful");
-    const test = await ingredients
-      .find({})
-      .project({
-        name: 0,
-        amount: 0,
-        unit: 0,
-      })
-      .limit(10)
-      .toArray();
-  console.log(test);
-    return "Database connected";
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-    return "Database not connected";
-  }
-}
 const DATA = {
   title: "Next.js with MongoDB",
   description:
@@ -65,6 +37,7 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
+  console.log(dbConnectionStatus.ingredients);
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
