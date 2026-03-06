@@ -1,4 +1,3 @@
-import clientPromise from '@/lib/mongodb';
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import logoDark from "@/assets/logo-dark.svg";
@@ -9,19 +8,7 @@ import { ArrowRight, FileText, LogIn } from "lucide-react";
 import { dbConnectionStatus } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-const client = await clientPromise;
-const db = client.db("cooking_inventory");
-const ingredients = db.collection("ingredientInventory");
-const result = await ingredients
-      .find({})
-      .project({
-        name: 0,
-        amount: 0,
-        unit: 0,
-      })
-      .limit(10)
-      .toArray();
-console.log(result);
+console.log(ingredients);
 
 const DATA = {
   title: "Next.js with MongoDB",
