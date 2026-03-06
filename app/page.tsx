@@ -5,11 +5,30 @@ import vercelLogotypeLight from "@/assets/vercel-logotype-light.svg";
 import vercelLogotypeDark from "@/assets/vercel-logotype-dark.svg";
 import Link from "next/link";
 import { ArrowRight, FileText, LogIn } from "lucide-react";
-import { dbConnectionStatus } from "@/db/connection-status";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import clientPromise from '@/lib/mongodb';
 
+export async function dbConnectionStatus() {
+  if (!process.env.MONGODB_URI) {
+    return "No MONGODB_URI environment variable";
+  }
+  if (!clientPromise) {
+    return "Database client not initialized";
+  }
+  try {
+    const client = await clientPromise;
+    const db = client.db("cooking_inventory");
+    const users = db.collection("cooking_inventory_users");
+    const ingredients = db.collection("ingredientInventory");
+    const recipes = db.collection("recipesInventory");
+    console.log("MongoDB connection successful");
+    return "Database connected";
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+    return "Database not connected";
+  }
+}
 const DATA = {
   title: "Next.js with MongoDB",
   description:
@@ -38,24 +57,16 @@ const DATA = {
 
 export default async function Home() {
   const result = await dbConnectionStatus();
-  try {
-  const client = await clientPromise;
-  const db = client.db("cooking_inventory");
-  const ingredients = db.collection("ingredientInventory");
-  const testIngredient = await ingredients
+  const test = await ingredients
       .find({})
       .project({
         name: 0,
         amount: 0,
         unit: 0,
       })
-      .limit(5)
+      .limit(10)
       .toArray();
-console.log(testIngredient);
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-    return "Database not connected";
-  }
+  console.log(test);
   return (
     <div className="flex min-h-screen flex-col">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
