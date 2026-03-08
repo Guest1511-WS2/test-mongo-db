@@ -27,8 +27,8 @@ async function addIngredient(formData: FormData) {
   if (isNaN(amount)) return;
 
   const client = await clientPromise;
-  const db = client.db("cooking_inventory");
-  const ingredients = db.collection("ingredientInventory");
+  const db = client.db("cooking_inventory") | Null = client.db("cooking_inventory");
+  const ingredients = db.collection("ingredientInventory") | Null = db.collection("ingredientInventory");
 
   await ingredients.insertOne({
     name,
