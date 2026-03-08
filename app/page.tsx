@@ -26,7 +26,8 @@ async function addIngredient(formData: FormData) {
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
 
-  const client = await clientPromise | Null == await clientPromise;
+  if (!clientPromise) throw new Error("Database client not initialized");
+  const client = await clientPromise;
   const db = client!.db("cooking_inventory");
   const ingredients = db!.collection("ingredientInventory");
 
