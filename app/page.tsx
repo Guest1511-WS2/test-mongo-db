@@ -265,7 +265,7 @@ export default async function Home() {
               
               <div className="flex flex-col gap-1.5">
                 <label
-                  htmlFor="name"
+                  htmlFor="status"
                   className="text-sm font-medium tracking-tight"
                 >
                   Status
