@@ -12,8 +12,10 @@ import { Badge } from "@/components/ui/badge";
 import { dbConnectionStatus } from "@/db/connection-status";
 import clientPromise from "@/lib/mongodb";
 import { revalidatePath } from "next/cache";
+import { ObjectId } from "mongodb";
+import { EditIngredientModal } from "@/components/EditIngredientModal";
 
-// Connecting to the Sever
+// Connecting to the Server
 async function addIngredient(formData: FormData) {
   "use server";
 
@@ -38,6 +40,40 @@ async function addIngredient(formData: FormData) {
     unit,
     createdAt: new Date(),
   });
+
+  revalidatePath("/");
+}
+
+async function updateIngredient(formData: FormData) {
+  "use server";
+
+  const id = formData.get("id")?.toString().trim();
+  const name = formData.get("name")?.toString().trim();
+  const amountRaw = formData.get("amount")?.toString().trim();
+  const unit = formData.get("unit")?.toString().trim();
+
+  if (!id || !name || !amountRaw || !unit) return;
+
+  const amount = parseFloat(amountRaw);
+  if (isNaN(amount)) return;
+
+  if (!clientPromise) throw new Error("Database client not initialized");
+
+  const client = await clientPromise;
+  const db = client.db("cooking_inventory");
+  const ingredients = db.collection("ingredientInventory");
+
+  await ingredients.updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        name,
+        amount,
+        unit,
+        updatedAt: new Date(),
+      },
+    }
+  );
 
   revalidatePath("/");
 }
@@ -262,7 +298,8 @@ export default async function Home() {
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Name</th>
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Amount</th>
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Unit</th>
-                      <th className="pb-2.5 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Added</th>
+                      <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Added</th>
+                      <th className="pb-2.5 text-right font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Edit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -281,7 +318,13 @@ export default async function Home() {
                         </td>
                         <td className="py-3 pr-4 tabular-nums text-[#61646B] dark:text-[#94979E]">{ingredient.amount}</td>
                         <td className="py-3 pr-4 text-[#61646B] dark:text-[#94979E]">{ingredient.unit}</td>
-                        <td className="py-3 text-xs text-[#61646B] dark:text-[#94979E]">{ingredient.createdAt ?? "—"}</td>
+                        <td className="py-3 pr-4 text-xs text-[#61646B] dark:text-[#94979E]">{ingredient.createdAt ?? "—"}</td>
+                        <td className="py-3 text-right">
+                          <EditIngredientModal
+                            ingredient={ingredient}
+                            updateIngredient={updateIngredient}
+                          />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
