@@ -24,7 +24,7 @@ async function addIngredient(formData: FormData) {
   const statusRaw = formData.get("status")?.toString().trim();
   const unit = formData.get("unit")?.toString().trim();
 
-  if (!name || !amountRaw || !statusRaw !! !unit) return;
+  if (!name || !amountRaw || !statusRaw || !unit) return;
 
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
