@@ -13,7 +13,7 @@ import { dbConnectionStatus } from "@/db/connection-status";
 import clientPromise from "@/lib/mongodb";
 import { revalidatePath } from "next/cache";
 import { ObjectId } from "mongodb";
-import { EditIngredientModal } from "@components/ui/EditIngredientModal";
+import { EditIngredientModal } from "@/components/ui/EditIngredientModal";
 
 // Connecting to the Server
 async function addIngredient(formData: FormData) {
