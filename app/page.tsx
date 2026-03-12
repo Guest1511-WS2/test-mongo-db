@@ -21,9 +21,10 @@ async function addIngredient(formData: FormData) {
 
   const name = formData.get("name")?.toString().trim();
   const amountRaw = formData.get("amount")?.toString().trim();
+  const statusRaw = formData.get("status")?.toString().trim();
   const unit = formData.get("unit")?.toString().trim();
 
-  if (!name || !amountRaw || !unit) return;
+  if (!name || !amountRaw || !statusRaw !! !unit) return;
 
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
@@ -37,6 +38,7 @@ async function addIngredient(formData: FormData) {
   await ingredients.insertOne({
     name,
     amount,
+    status,
     unit,
     createdAt: new Date(),
   });
@@ -50,9 +52,10 @@ async function updateIngredient(formData: FormData) {
   const id = formData.get("id")?.toString().trim();
   const name = formData.get("name")?.toString().trim();
   const amountRaw = formData.get("amount")?.toString().trim();
+  const statusRaw = formData.get("status")?.toString().trim();
   const unit = formData.get("unit")?.toString().trim();
 
-  if (!id || !name || !amountRaw || !unit) return;
+  if (!id || !name || !amountRaw || !statusRaw || !unit) return;
 
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
@@ -69,6 +72,7 @@ async function updateIngredient(formData: FormData) {
       $set: {
         name,
         amount,
+        status,
         unit,
         updatedAt: new Date(),
       },
@@ -110,6 +114,7 @@ interface Ingredient {
   _id: string;
   name: string;
   amount: number;
+  status: string;
   unit: string;
   createdAt?: string;
 }
@@ -132,6 +137,7 @@ export default async function Home() {
       _id: doc._id.toString(),
       name: doc.name ?? "",
       amount: doc.amount ?? 0,
+      status: doc.status ?? "",
       unit: doc.unit ?? "",
       createdAt: doc.createdAt ? new Date(doc.createdAt).toLocaleString() : undefined,
     }));
@@ -256,7 +262,23 @@ export default async function Home() {
                   />
                 </div>
               </div>
-
+              
+              <div className="flex flex-col gap-1.5">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium tracking-tight"
+                >
+                  Status
+                </label>
+                <input
+                  id="status"
+                  name="status"
+                  type="text"
+                  required
+                  placeholder="e.g. Low/In Stock/etc."
+                  className="rounded-lg border border-[#023430]/40 bg-white px-3.5 py-2.5 text-sm outline-none ring-[#00ED64] transition placeholder:text-[#94979E] focus:ring-2 dark:border-[#023430] dark:bg-[#001E2B] dark:text-white dark:placeholder:text-[#61646B]"
+                />
+              </div>
               <Button
                 type="submit"
                 disabled={!isConnected}
@@ -297,6 +319,7 @@ export default async function Home() {
                     <tr className="border-b border-[#023430]/40 dark:border-[#023430]">
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Name</th>
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Amount</th>
+                      <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Status</th>
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Unit</th>
                       <th className="pb-2.5 pr-4 text-left font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Added</th>
                       <th className="pb-2.5 text-right font-semibold tracking-tight text-[#61646B] dark:text-[#94979E]">Edit</th>
@@ -317,6 +340,7 @@ export default async function Home() {
                           {ingredient.name}
                         </td>
                         <td className="py-3 pr-4 tabular-nums text-[#61646B] dark:text-[#94979E]">{ingredient.amount}</td>
+                        <td className="py-3 pr-4 tabular-nums text-[#61646B] dark:text-[#94979E]">{ingredient.status}</td>
                         <td className="py-3 pr-4 text-[#61646B] dark:text-[#94979E]">{ingredient.unit}</td>
                         <td className="py-3 pr-4 text-xs text-[#61646B] dark:text-[#94979E]">{ingredient.createdAt ?? "—"}</td>
                         <td className="py-3 text-right">
