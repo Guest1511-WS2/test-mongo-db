@@ -21,10 +21,10 @@ async function addIngredient(formData: FormData) {
 
   const name = formData.get("name")?.toString().trim();
   const amountRaw = formData.get("amount")?.toString().trim();
-  const statusRaw = formData.get("status")?.toString().trim();
+  const status = formData.get("status")?.toString().trim();
   const unit = formData.get("unit")?.toString().trim();
 
-  if (!name || !amountRaw || !statusRaw || !unit) return;
+  if (!name || !amountRaw || !status || !unit) return;
 
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
@@ -52,10 +52,10 @@ async function updateIngredient(formData: FormData) {
   const id = formData.get("id")?.toString().trim();
   const name = formData.get("name")?.toString().trim();
   const amountRaw = formData.get("amount")?.toString().trim();
-  const statusRaw = formData.get("status")?.toString().trim();
+  const status = formData.get("status")?.toString().trim();
   const unit = formData.get("unit")?.toString().trim();
 
-  if (!id || !name || !amountRaw || !statusRaw || !unit) return;
+  if (!id || !name || !amountRaw || !status || !unit) return;
 
   const amount = parseFloat(amountRaw);
   if (isNaN(amount)) return;
