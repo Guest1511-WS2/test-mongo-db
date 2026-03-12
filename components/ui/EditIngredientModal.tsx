@@ -7,6 +7,7 @@ interface Ingredient {
   _id: string;
   name: string;
   amount: number;
+  status: string;
   unit: string;
   createdAt?: string;
 }
@@ -220,6 +221,22 @@ export function EditIngredientModal({
                     className="rounded-lg border border-[#023430]/40 bg-white px-3.5 py-2.5 text-sm outline-none ring-[#00ED64] transition placeholder:text-[#94979E] focus:ring-2 dark:border-[#023430] dark:bg-[#001E2B] dark:text-white dark:placeholder:text-[#61646B]"
                   />
                 </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label
+                  htmlFor={`edit-status-${ingredient._id}`}
+                  className="text-sm font-medium tracking-tight"
+                >
+                  Status
+                </label>
+                <input
+                  id={`edit-status-${ingredient._id}`}
+                  name="status"
+                  type="text"
+                  required
+                  placeholder="e.g. Low/In Stock/etc."
+                  className="rounded-lg border border-[#023430]/40 bg-white px-3.5 py-2.5 text-sm outline-none ring-[#00ED64] transition placeholder:text-[#94979E] focus:ring-2 dark:border-[#023430] dark:bg-[#001E2B] dark:text-white dark:placeholder:text-[#61646B]"
+                />
               </div>
 
               {/* Actions */}
