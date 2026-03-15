@@ -101,7 +101,7 @@ export function EditIngredientModal({
           handleClose();
         }}
         className="
-          w-full max-w-sm rounded-2xl border border-[#023430]
+          w-full max-w-md rounded-2xl border border-[#023430]
           bg-white p-0 shadow-2xl shadow-black/30
           backdrop:bg-black/60 backdrop:backdrop-blur-sm
           dark:bg-[#001E2B]
@@ -169,7 +169,7 @@ export function EditIngredientModal({
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor={`edit-name-${ingredient._id}`}
-                  className="text-sm font-medium tracking-tight"
+                  className="text-sm font-medium tracking-tight text-left"
                 >
                   Name
                 </label>
@@ -189,7 +189,7 @@ export function EditIngredientModal({
                 <div className="flex flex-1 flex-col gap-1.5">
                   <label
                     htmlFor={`edit-amount-${ingredient._id}`}
-                    className="text-sm font-medium tracking-tight"
+                    className="text-sm font-medium tracking-tight text-left"
                   >
                     Amount
                   </label>
@@ -208,7 +208,7 @@ export function EditIngredientModal({
                 <div className="flex flex-1 flex-col gap-1.5">
                   <label
                     htmlFor={`edit-unit-${ingredient._id}`}
-                    className="text-sm font-medium tracking-tight"
+                    className="text-sm font-medium tracking-tight text-left"
                   >
                     Unit
                   </label>
@@ -225,7 +225,7 @@ export function EditIngredientModal({
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor={`edit-status-${ingredient._id}`}
-                  className="text-sm font-medium tracking-tight"
+                  className="text-sm font-medium tracking-tight text-left"
                 >
                   Status
                 </label>
@@ -234,6 +234,7 @@ export function EditIngredientModal({
                   name="status"
                   type="text"
                   required
+                  defaultValue={ingredient.status}
                   placeholder="e.g. Low/In Stock/etc."
                   className="rounded-lg border border-[#023430]/40 bg-white px-3.5 py-2.5 text-sm outline-none ring-[#00ED64] transition placeholder:text-[#94979E] focus:ring-2 dark:border-[#023430] dark:bg-[#001E2B] dark:text-white dark:placeholder:text-[#61646B]"
                 />
